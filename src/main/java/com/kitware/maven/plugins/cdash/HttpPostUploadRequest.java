@@ -1,18 +1,12 @@
 package com.kitware.maven.plugins.cdash;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpCookie;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
-
-import org.apache.maven.plugin.MojoExecutionException;
 
 public class HttpPostUploadRequest {
 
@@ -27,7 +21,6 @@ public class HttpPostUploadRequest {
   }
 
   String execute() throws IOException {
-    BufferedReader br = null;
     HttpURLConnection connection = null;
 
     try

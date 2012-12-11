@@ -21,14 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.List;
 
-
 import org.apache.maven.model.Plugin;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 /**
@@ -57,12 +53,9 @@ public class CDashSurefireMojo extends CDashAbstractMojo {
   }
 
   public void execute() throws MojoExecutionException {
-    System.out.println("execute");
 
     List<File> toUpload = findReports(getSurefireReportsDirectories(),
                                       surefireReportsFilenameRegex);
-
-    System.out.println("Files to upload: " + toUpload.size());
 
     upload(toUpload);
   }
@@ -93,7 +86,6 @@ public class CDashSurefireMojo extends CDashAbstractMojo {
 
     for (Plugin plugin : buildPlugins) {
       if(plugin.getArtifactId().equals("maven-surefire-plugin")) {
-        System.out.println();
 
         Xpp3Dom configuration = (Xpp3Dom)plugin.getConfiguration();
         Xpp3Dom reportsDirectoryNode

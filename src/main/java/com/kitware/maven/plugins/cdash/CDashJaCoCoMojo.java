@@ -53,14 +53,11 @@ public class CDashJaCoCoMojo extends CDashAbstractMojo {
   private File[] jacocoOutputDirectories;
 
   public void execute() throws MojoExecutionException {
-    System.out.println("execute");
 
     List<File> toUpload = findReports(getJacocoOutputDirectories(),
                                       getJacocoReportsFilenameRegex());
-
-    System.out.println("Files to upload: " + toUpload);
-
     upload(toUpload);
+
   }
 
   private File getJacocoOutputDirectory() {
@@ -71,7 +68,6 @@ public class CDashJaCoCoMojo extends CDashAbstractMojo {
 
     for (Plugin plugin : buildPlugins) {
       if(plugin.getArtifactId().equals("jacoco-maven-plugin")) {
-        System.out.println();
 
         Xpp3Dom configuration = (Xpp3Dom)plugin.getConfiguration();
         Xpp3Dom reportsDirectoryNode
@@ -142,13 +138,9 @@ public class CDashJaCoCoMojo extends CDashAbstractMojo {
     Matcher matcher = reportRegex.matcher(response);
     String xml = response.toString();
 
-    System.out.println(matcher.matches());
-
     // Error handling ...
     if(matcher.matches()) {
       xml = String.format(siteTag, matcher.group(1));
-
-      System.out.println(xml);
     }
 
     return new ByteArrayInputStream(xml.getBytes());

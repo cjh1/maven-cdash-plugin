@@ -22,7 +22,6 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -151,8 +150,6 @@ public abstract class CDashAbstractMojo extends AbstractMojo {
 
     // Gather all the reports we need to upload
     for (File reportDir : reportDirectories) {
-
-      System.out.println("reportDir: " + reportDir);
 
       File[] files = reportDir.listFiles(new FilenameFilter() {
 

@@ -44,6 +44,8 @@ public class HttpPostUploadRequest {
       connection.setRequestProperty("Content-Length", "" + Integer.toString(baos.size()));
       connection.setUseCaches (false);
 
+      System.out.println(baos.toString());
+
       DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
       wr.writeBytes(baos.toString());
       wr.flush();

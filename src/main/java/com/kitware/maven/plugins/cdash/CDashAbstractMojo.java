@@ -23,36 +23,28 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public abstract class CDashAbstractMojo extends AbstractMojo {
 
-  /**
-   * @parameter expression="${project}"
-   * @readonly
-   */
+  @Parameter(readonly=true, defaultValue="${project}")
   protected MavenProject mavenProject;
-  /**
-   * @parameter expression="${project.basedir}"
-   * @readonly
-   */
-  protected File baseDir;
-  /**
-   * @parameter
-   */
-  protected String site;
-  /**
-   * @parameter
-   */
-  protected String project;
-  /**
-   * @parameter
-   * @required
-   */
-  protected URL url;
 
+  @Parameter(readonly=true, defaultValue="${project.basedir}")
+  protected File baseDir;
+
+  @Parameter(required=true)
+  protected String site;
+
+  @Parameter(required=true)
+  protected String project;
+
+  @Parameter(required=true)
+  protected URL url;
 
   public MavenProject getMavenProject() {
     return mavenProject;

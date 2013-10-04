@@ -26,21 +26,19 @@ import java.util.List;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
-/**
- * @goal upload-report-surefire
- */
+@Mojo(name="upload-report-surefire")
 public class CDashSurefireMojo extends CDashAbstractMojo {
 
-  /**
-   * @parameter default-value="TEST-.*\.xml"
-   */
+  @Parameter(defaultValue="TEST-.*\\.xml")
   String surefireReportsFilenameRegex;
 
   /**
    * The directories to search for reports
-   * @parameter
    */
+  @Parameter(defaultValue="")
   private File[] surefireReportsDirectories;
 
 
@@ -80,20 +78,23 @@ public class CDashSurefireMojo extends CDashAbstractMojo {
 
   private File getSurefireReportsDirectory() {
 
-    List<Plugin> buildPlugins = mavenProject.getBuildPlugins();
+    List<Plugin> plugins = mavenProject.getBuildPlugins();
+    plugins.addAll(mavenProject.getPluginManagement().getPlugins());
 
     File reportsDirectory = null;
 
-    for (Plugin plugin : buildPlugins) {
+    for (Plugin plugin : plugins) {
       if(plugin.getArtifactId().equals("maven-surefire-plugin")) {
 
         Xpp3Dom configuration = (Xpp3Dom)plugin.getConfiguration();
+        if(configuration == null || configuration.getChild("reportsDirectory") == null) {
+          break;
+        }
         Xpp3Dom reportsDirectoryNode
           = configuration.getChild("reportsDirectory");
 
-        if(reportsDirectoryNode != null) {
-          reportsDirectory = new File(reportsDirectoryNode.getValue());
-        }
+        reportsDirectory = new File(reportsDirectoryNode.getValue());
+        break;
       }
     }
 

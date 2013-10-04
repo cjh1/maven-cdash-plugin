@@ -110,7 +110,7 @@ public class CDashSurefireMojo extends CDashAbstractMojo {
       // if no configuration was provided use the default
       if(reportsDirectory == null) {
         reportsDirectory = new File(baseDir, "target"
-                                    + File.pathSeparator
+                                    + File.separator
                                     + "surefire-reports");
       }
 

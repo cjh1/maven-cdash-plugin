@@ -32,8 +32,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name="upload-report-surefire")
 public class CDashSurefireMojo extends CDashAbstractMojo {
 
-  @Parameter(defaultValue="TEST-.*\\.xml")
-  String surefireReportsFilenameRegex;
+  @Parameter
+  String surefireReportsFilenameRegex = "TEST-.*\\.xml";
 
   /**
    * The directories to search for reports

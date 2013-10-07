@@ -28,28 +28,23 @@ import java.util.regex.Pattern;
 
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
-/**
- * @goal upload-report-jacoco
- */
+@Mojo(name="upload-report-jacoco")
 public class CDashJaCoCoMojo extends CDashAbstractMojo {
 
-  /**
-   * @parameter expression="${project.reporting.outputDirectory}"
-   * @readonly
-   */
+  @Parameter(readonly=true, defaultValue="${project.reporting.outputDirectory}")
   private File reportingOutputDirectory;
 
-  /**
-   * @parameter default-value="jacoco.xml"
-   */
+  @Parameter(defaultValue="jacoco.xml")
   private String jacocoReportsFilenameRegex;
 
   /**
    * The directories to search for reports
-   * @parameter
    */
+  @Parameter
   private File[] jacocoOutputDirectories;
 
   public void execute() throws MojoExecutionException {
